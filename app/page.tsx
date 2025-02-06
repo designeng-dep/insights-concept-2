@@ -4,12 +4,36 @@ import React, { useState } from 'react';
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/card';
 import { TrendingUp, Star, Calendar, Award, ArrowUpRight, BookOpen } from 'lucide-react';
 
+// Add type definitions
+type Industry = 'Tech' | 'Healthcare' | 'Finance' | 'Manufacturing';
+
+interface Skill {
+  name: string;
+  growth: string;
+  demand: string;
+  timeToMaster: string;
+  salary: string;
+}
+
+interface IndustryData {
+  topSkills: Skill[];
+  emergingRoles: string[];
+  industryOutlook: string;
+}
+
+interface IndustryTrends {
+  Tech: IndustryData;
+  Healthcare: IndustryData;
+  Finance: IndustryData;
+  Manufacturing: IndustryData;
+}
+
 const SkillTrendsDashboard = () => {
-  const [selectedIndustry, setSelectedIndustry] = useState('Tech');
+  const [selectedIndustry, setSelectedIndustry] = useState<Industry>('Tech');
   const [careerStage, setCareerStage] = useState('Mid-Career');
   
-  // Mock data - in real app would come from API
-  const industryTrends = {
+  // Add type annotation to industryTrends
+  const industryTrends: IndustryTrends = {
     Tech: {
       topSkills: [
         { name: 'AI/ML Engineering', growth: '+82%', demand: 'Very High', timeToMaster: '6-8 months', salary: '$8-12k' },
@@ -76,7 +100,7 @@ const SkillTrendsDashboard = () => {
           <select 
             className="p-2 border rounded-lg"
             value={selectedIndustry}
-            onChange={(e) => setSelectedIndustry(e.target.value)}
+            onChange={(e) => setSelectedIndustry(e.target.value as Industry)}
           >
             {Object.keys(industryTrends).map(industry => (
               <option key={industry} value={industry}>{industry}</option>
@@ -174,7 +198,7 @@ const SkillTrendsDashboard = () => {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               <div className="p-4 bg-blue-50 rounded-lg">
                 <h3 className="font-semibold mb-2">Next Best Action</h3>
-                <p className="text-sm text-gray-600">Start with "Introduction to Machine Learning" to build foundation for AI/ML Engineering path</p>
+                <p className="text-sm text-gray-600">Start with &quot;Introduction to Machine Learning&quot; to build foundation for AI/ML Engineering path</p>
               </div>
               <div className="p-4 bg-purple-50 rounded-lg">
                 <h3 className="font-semibold mb-2">Skill Gap Alert</h3>
